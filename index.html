@@ -37,7 +37,7 @@
 
 	 //Create a front SpotLight and turn on shadows for the light
 	var spotLightFront = new THREE.SpotLight( 0xffffff);
-	spotLightFront.position.set(0*zoom,0*zoom,2*zoom);
+	spotLightFront.position.set(0*zoom,0*zoom,1*zoom);
 	spotLightFront.castShadow = true;
 
 	spotLightFront.shadow.mapSize.width = 1024;
@@ -50,7 +50,7 @@
 
 	 //Create a back SpotLight and turn on shadows for the light
 	var spotLightBottomack = new THREE.SpotLight( 0xffffff);
-	spotLightBottomack.position.set(0*zoom,0*zoom,-2*zoom);
+	spotLightBottomack.position.set(0*zoom,0*zoom,-1*zoom);
 	spotLightBottomack.castShadow = true;
 
 	spotLightBottomack.shadow.mapSize.width = 1024;
@@ -63,7 +63,7 @@
 
 	//Create a left SpotLight and turn on shadows for the light
 	var spotLightLeft = new THREE.SpotLight( 0xffffff);
-	spotLightLeft.position.set(-2*zoom,0*zoom,0*zoom);
+	spotLightLeft.position.set(-1*zoom,0*zoom,0*zoom);
 	spotLightLeft.castShadow = true;
 
 	spotLightLeft.shadow.mapSize.width = 1024;
@@ -76,7 +76,7 @@
 
 	//Create a right SpotLight and turn on shadows for the light
 	var spotLightRight = new THREE.SpotLight( 0xffffff);
-	spotLightRight.position.set(2*zoom,0*zoom,0*zoom);
+	spotLightRight.position.set(1*zoom,0*zoom,0*zoom);
 	spotLightRight.castShadow = true;
 
 	spotLightRight.shadow.mapSize.width = 1024;
@@ -89,7 +89,7 @@
 
 	//Create a high SpotLight and turn on shadows for the light
 	var spotLightHigh = new THREE.SpotLight( 0xffffff);
-	spotLightHigh.position.set(0*zoom,2*zoom,0*zoom);
+	spotLightHigh.position.set(0*zoom,1*zoom,0*zoom);
 	spotLightHigh.castShadow = true;
 
 	spotLightHigh.shadow.mapSize.width = 1024;
@@ -102,7 +102,7 @@
 
 	//Create a SpotLight and turn on shadows for the light
 	var spotLightBottom = new THREE.SpotLight( 0xffffff);
-	spotLightBottom.position.set(0*zoom,-2*zoom,0*zoom);
+	spotLightBottom.position.set(0*zoom,-1*zoom,0*zoom);
 	spotLightBottom.castShadow = true;
 
 	spotLightBottom.shadow.mapSize.width = 1024;
