@@ -151,6 +151,7 @@
 	 solarSystem.add(pivotSun);
 
 	 var ball = new THREE.SphereGeometry(1, 32, 32);
+	 var ring = new THREE.RingGeometry( 3.5, 5, 32 );
 	 /****************************************************Sun***********************************************************/
 	 var sunMaterial = new THREE.MeshPhongMaterial( { color: 0xff4500 } );
 	 var sun = new THREE.Mesh(ball, sunMaterial);
@@ -214,6 +215,15 @@
 	 saturn.position.x = 5.5*zoom;
 	 saturn.castShadow = true; //default is false
 	 saturn.receiveShadow = true; 
+	 /****************************************************Saturn'ring***********************************************************/
+	 var saturnRingMaterial = new THREE.MeshPhongMaterial( { color:  0xf7dc6f, side: THREE.DoubleSide   } );
+	 var saturnRing = new THREE.Mesh(ring, saturnRingMaterial);
+	 saturnRing.scale.set(0.4*zoom, 0.4*zoom, 0.8*zoom);
+	 saturn.add(saturnRing);
+	 saturnRing.position.x = 0*zoom;
+	 saturnRing.rotation.x = 1.7
+	 saturnRing.castShadow = true; //default is false
+	 saturnRing.receiveShadow = true; 
 	 /****************************************************Uranus***********************************************************/
 	 var uranusMaterial = new THREE.MeshPhongMaterial( { color:  0xaed6f1    } );
 	 var uranus = new THREE.Mesh(ball, uranusMaterial);
