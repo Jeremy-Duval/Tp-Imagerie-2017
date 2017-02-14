@@ -185,7 +185,7 @@
 	 earth.position.x = 2.7*zoom;
 	 earth.castShadow = true; //default is false
 	 earth.receiveShadow = true; 
-	 
+
 	 earth.add(pivotMoon);
 	 /****************************************************Moon***********************************************************/
 	 var moonMaterial = new THREE.MeshPhongMaterial( { color:  0xecf0f1  } );
@@ -260,6 +260,19 @@
 	 // This is executed for each frames
 	 function render() {
 	     requestAnimationFrame( render );
+
+
+	     /****************************************************Moon's track***********************************************************/
+		 var moonMoonMaterial = new THREE.MeshPhongMaterial( { color:  0xecf0f1  } );
+		 var moonMoon = new THREE.Mesh(ball, moonMoonMaterial);
+		 moonMoon.scale.set(0.1*zoom, 0.1*zoom, 0.1*zoom);
+		 solarSystem.add(moonMoon)
+		 moonMoon.applyMatrice(pivotMoon.matriceWorld);
+		 moonMoon.castShadow = true; //default is false
+		 moonMoon.receiveShadow = true; 
+
+
+
 
 	     // Animation code goes here
 	     pivotMercury.rotation.y += 0.08 *speed;
