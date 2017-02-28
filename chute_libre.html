@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+	<meta charset="utf-8">
+	<title>My first three.js app V2</title>
+	<style>
+	 body { margin: 0; }
+	 canvas { width: 100%; height: 90% }
+	 #toolbar { color: white; position: absolute; }
+	 #toolbar a { color: lightgrey; }
+	 #toolbar a:hover { text-decoration: none; }
+	</style>
+    </head>
+    <body>
+	<p id="toolbar">
+	    <a href="https://threejs.org/docs/index.html#Manual/Introduction/Creating_a_scene">Documentation</a>
+	    <a href="mailto:guillaum.bouchard@gmail.com">guillaum.bouchard@gmail.com</a>
+		<a>Modification by Jérémy et Valentin</a>
+	</p>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.js"></script>
+	<script>
+	 // Initialisation of the scene / camera / renderer
+	 var scene = new THREE.Scene();
+	 var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	 var renderer = new THREE.WebGLRenderer();
+	 renderer.setSize( window.innerWidth, window.innerHeight );
+	 renderer.shadowMap.enabled = true;
+	 renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
+	 document.body.appendChild( renderer.domElement );
+
+	 var speed = 0.001;
+	 var zoom = 1;
+	 var k = 1;
+
+	 camera.position.z = 5;
+
+
+
+	 //Create a SpotLight and turn on shadows for the light
+	var spotLightFront = new THREE.SpotLight( 0xffffff);
+	spotLightFront.position.set(0*zoom,0*zoom,0*zoom);
+	spotLightFront.castShadow = true;
+
+	spotLightFront.shadow.mapSize.width = 1024;
+	spotLightFront.shadow.mapSize.height = 1024;
+
+	spotLightFront.shadow.camera.near = 500;
+	spotLightFront.shadow.camera.far = 4000;
+	spotLightFront.shadow.camera.fov = 30;
+	scene.add(spotLightFront);
+
+	
+	 // Initialisation of your objects / materials / light
+	 var sky = new THREE.Object3D();
+	 
+	 scene.add(sky);
+	 
+
+	 sky.scale.set(0.1*zoom, 0.1*zoom, 0.1*zoom);
+
+	 var ball = new THREE.SphereGeometry(1, 32, 32);
+	 var ring = new THREE.RingGeometry( 3.5, 5, 32 );
+	 /****************************************************ball***********************************************************/
+	 var fallMaterial = new THREE.MeshBasicMaterial( { color: 0xff4500 } );
+	 var fallingBall = new THREE.Mesh(ball, fallMaterial);
+	 fallingBall.castShadow = true; //default is false
+	 fallingBall.receiveShadow = true; 
+	 fallingBall.scale.set(1*zoom, 1*zoom, 1*zoom);
+	 sky.add(fallingBall);
+
+	 var masseBall = 90;
+
+	 var acceleration_ball = 10*masseBall;
+	 fallingBall.position.x = -50;
+	 fallingBall.position.y =30;
+	 var init_position_x = fallingBall.position.x;
+	 var init_position_y = fallingBall.position.y;
+
+	 var vitesse_x = 10;
+	 var vitesse_y = 12;
+	 var frottementBall_x = 0;
+	 var frottementBall_y = 0;
+
+
+	 /****************************************************ball2***********************************************************/
+	 var fallMaterial2 = new THREE.MeshBasicMaterial( { color: 0x01CCFE } );
+	 var fallingBall2 = new THREE.Mesh(ball, fallMaterial2);
+	 fallingBall2.castShadow = true; //default is false
+	 fallingBall2.receiveShadow = true; 
+	 fallingBall2.scale.set(1*zoom, 1*zoom, 1*zoom);
+	 sky.add(fallingBall2);
+
+	 var masseBall2 = 50;
+
+	 var acceleration_ball2 = 10*masseBall2;
+	 fallingBall2.position.x = 0;
+	 fallingBall2.position.y =30;
+	 var init_position2_x = fallingBall2.position.x;
+	 var init_position2_y = fallingBall2.position.y;
+
+	 var vitesse2_x = 10;
+	 var vitesse2_y = 12;
+	 var frottementBall2_x = 0;
+	 var frottementBall2_y = 0;
+
+
+	 // This is executed for each frames
+	 function render() {
+	     requestAnimationFrame( render );
+
+	     // Animation code goes here
+	    vitesse_x = vitesse_x*acceleration_ball*speed;
+	    frottementBall_x = k*(vitesse_x*vitesse_x)/masseBall;
+
+	    vitesse_y = vitesse_y*acceleration_ball*speed;
+	    frottementBall_y = k*(vitesse_y*vitesse_y)/masseBall;
+
+	     fallingBall.position.x = fallingBall.position.x+vitesse_x-frottementBall_x;
+	     fallingBall.position.y = fallingBall.position.y-vitesse_y-frottementBall_y;
+
+	     if(fallingBall.position.y < -100){
+	     	fallingBall.position.y = init_position_y;
+	     	fallingBall.position.x = init_position_x;
+	     }
+
+
+
+
+	    vitesse2_x = vitesse2_x*acceleration_ball2*speed;
+	    frottementBall2_x = k*(vitesse2_x*vitesse2_x)/masseBall2;
+
+	    vitesse2_y = vitesse2_y*acceleration_ball2*speed;
+	    frottementBall2_y = k*(vitesse2_y*vitesse2_y)/masseBall2;
+
+
+	     fallingBall2.position.x = fallingBall2.position.x+vitesse2_x-frottementBall2_x;
+	     fallingBall2.position.y = fallingBall2.position.y-vitesse2_y-frottementBall2_y;
+
+	     if(fallingBall2.position.y < -100){
+	     	fallingBall2.position.y = init_position2_y;
+	     	fallingBall2.position.x = init_position2_x;
+	     }
+
+
+	     console.log(fallingBall.position.y);
+
+	     renderer.render( scene, camera );
+	 }
+
+	 render();
+	</script>
+    </body>
+</html>
