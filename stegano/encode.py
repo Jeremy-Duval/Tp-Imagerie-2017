@@ -14,7 +14,8 @@ assert size == size2
 result = image_new(size)
 
 # ici votre code d'encodage
-...
+for i in range(len(mask)):
+	result[i] = high(mask[i],4)|high(message[i],4)>>4
 
 # sauvegarde l'image
-image_save(result, size, 'resultat.png')
+image_save(result, size, 'resultat_encode.png')
